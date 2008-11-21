@@ -4,14 +4,17 @@ h1. Lizzy - The lightweight agent system for AMQP
 require 'rubygems'
 require 'lizzy'
 
-Lizzy.listen4("mail.sent") do |o, info, req|
-  p [Time.now, :request, req]
+Lizzy.start({}) do # start AMQP with sensible defaults
 
-  # We need to save an attcahment.  This may take awhile; defer from here
-  o.defer do
-    save_attachment(req[:attachment], "baxter.jpg")
-    o.publish("attachment.saved", { :filename => "baxter.jpg" })
+  Lizzy.listen4("mail.sent") do |o, info, req|
+    p [Time.now, :request, req]
+
+    # We need to save an attcahment.  This may take awhile; defer from here
+    o.defer do
+      save_attachment(req[:attachment], "baxter.jpg")
+      o.publish("attachment.saved", { :filename => "baxter.jpg" })
+    end
+
   end
-
 end
 </code></pre>
