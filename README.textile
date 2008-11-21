@@ -1,4 +1,10 @@
-h1. Lizzy - The lightweight agent system for AMQP
+h1. Lizzy - The lightweight agent system for AMQP for Ruby
+
+h3. Gem dependencies
+tmm1-amqp (http://github.com/tmm1/amqp)
+json (http://json.rubyforge.org/)
+
+h3. A quick example
 
 <pre><code># agent.rb
 require 'rubygems'
@@ -6,11 +12,11 @@ require 'lizzy'
 
 Lizzy.start({}) do # start AMQP with sensible defaults
 
-  Lizzy.listen4("mail.sent") do |o, info, req|
+  Lizzy.listen4("mail.sent") do |listener, info, req|
     p [Time.now, :request, req]
 
-    # We need to save an attcahment.  This may take awhile; defer from here
-    o.defer do
+    # We need to save an attachment.  This may take awhile; defer from here
+    listener.defer do
       save_attachment(req[:attachment], "baxter.jpg")
       o.publish("attachment.saved", { :filename => "baxter.jpg" })
     end
