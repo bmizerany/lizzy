@@ -1,11 +1,34 @@
 h1. Lizzy - The lightweight agent system for AMQP for Ruby
 
+h3. Features
+
+* Automatic logging of publishing, receiving, and errors through AMQP
+* Built-in event tracking via logging
+* Easy to use DSL for listening and publishing of events
+* Tight integration with tmm1-amqp so you may take advantage of advanced AMQP features
+* Used in Production at "Heroku":http://heroku.com to manage/scale all your apps!
+
+h3. Setup / Dependencies
+
+You will need RabbitMQ or another AMQP server installed (only tested with RabbitMQ)
+
+"http://www.rabbitmq.com/install.html#generic-unix":http://www.rabbitmq.com/install.html#generic-unix
+
 h3. Gem dependencies
 
+* eventmachine ("http://github.com/eventmachine/eventmachine/tree/master":http://github.com/eventmachine/eventmachine/tree/master)
 * tmm1-amqp ("http://github.com/tmm1/amqp":http://github.com/tmm1/amqp)
 * json ("http://json.rubyforge.org/":http://json.rubyforge.org/)
 
-h3. A quick example
+h3. Install
+
+<pre>gem install lizzy</pre>
+
+or
+
+Download source from "http://github.com/heroku/lizzy":http://github.com/heroku/lizzy
+
+h3. A quick listener example
 
 <pre><code># agent.rb
 require 'rubygems'
@@ -23,5 +46,17 @@ Lizzy.start({}) do # start AMQP with sensible defaults
     end
 
   end
+end
+</code></pre>
+
+h3. Sending message from a CLI script
+
+<pre><code>
+# send_message.rb
+require "rubygems"
+require "lizzy"
+
+Lizzy.start do
+  Lizzy.publish("mail.sent", { :attachment => 'hello world' })
 end
 </code></pre>
