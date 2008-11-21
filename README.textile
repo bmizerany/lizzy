@@ -1,8 +1,9 @@
 h1. Lizzy - The lightweight agent system for AMQP for Ruby
 
 h3. Gem dependencies
-tmm1-amqp (http://github.com/tmm1/amqp)
-json (http://json.rubyforge.org/)
+
+* tmm1-amqp ("http://github.com/tmm1/amqp":http://github.com/tmm1/amqp)
+* json ("http://json.rubyforge.org/":http://json.rubyforge.org/)
 
 h3. A quick example
 
