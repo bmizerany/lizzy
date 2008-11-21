@@ -58,5 +58,6 @@ require "lizzy"
 
 Lizzy.start do
   Lizzy.publish("mail.sent", { :attachment => 'hello world' })
+  Lizzy.stop_safe
 end
 </code></pre>
